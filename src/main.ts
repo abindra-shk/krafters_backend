@@ -1,11 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {
-  appendIdToRequest,
-  appendRequestIdToLogger,
   LoggingInterceptor,
-  morganRequestLogger,
-  morganResponseLogger,
 } from 'nestjs-winston-logger';
 import { ResponseTransformInterceptor } from './core/http/interceptors/response-transform.interceptor';
 import { globalLogger } from './config/globalLogger';

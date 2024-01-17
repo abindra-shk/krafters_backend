@@ -6,9 +6,10 @@ import { User } from './entities/user.entity';
 import { CqrsModule } from '@nestjs/cqrs';
 import { BcryptService } from 'src/authentication/services/bcrypt.service';
 import { CreateUserHandler } from './commands/handlers/create-user.handler';
+import { UserdetailsModule } from 'src/userdetails/userdetails.module';
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([User])],
+  imports: [CqrsModule, TypeOrmModule.forFeature([User]),UserdetailsModule],
   controllers: [UserController],
   providers: [CreateUserHandler, BcryptService,UserService],
   exports: [UserService],

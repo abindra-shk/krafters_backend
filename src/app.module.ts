@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserdetailsModule } from './userdetails/userdetails.module';
 import { CategoryModule } from './category/category.module';
 import { CoursesModule } from './courses/courses.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { CoursesModule } from './courses/courses.module';
     AuthenticationModule,
     UserdetailsModule,
     CategoryModule,
-    CoursesModule
+    CoursesModule,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

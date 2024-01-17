@@ -1,8 +1,9 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Exclude } from 'class-transformer';
 import { StatusEnum } from "src/common/enums/status.enum";
 import { UserTypeEnum } from "src/common/enums/user-type.enum";
 import { RoleEnum } from "src/utils/enums/role.enum";
+import { UserDetails } from "src/userdetails/entities/userdetail.entity";
 
 @Entity()
 export class User {
@@ -60,6 +61,10 @@ export class User {
     default: StatusEnum.INACTIVE,
   })
   status: StatusEnum;
+
+  @OneToOne(() => UserDetails)
+  @JoinColumn()
+  userDetails: UserDetails;
 
   @Exclude()
   @CreateDateColumn()

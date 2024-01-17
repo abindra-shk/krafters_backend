@@ -19,7 +19,7 @@ export class CategoryController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: './upload/images',
+        destination: './upload/images/category',
         filename: editFileName,
       }),
       fileFilter: imageFileFilter,

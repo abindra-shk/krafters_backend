@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserdetailsModule } from './userdetails/userdetails.module';
 import { CategoryModule } from './category/category.module';
 import { CoursesModule } from './courses/courses.module';
+import { BatchModule } from './batch/batch.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { CoursesModule } from './courses/courses.module';
     AuthenticationModule,
     UserdetailsModule,
     CategoryModule,
-    CoursesModule
+    CoursesModule,
+    BatchModule
   ],
   controllers: [AppController],
   providers: [AppService],

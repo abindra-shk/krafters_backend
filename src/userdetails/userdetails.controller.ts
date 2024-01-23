@@ -1,34 +1,39 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UserdetailsService } from './userdetails.service';
-import { CreateUserdetailDto } from './dto/create-userdetail.dto';
-import { UpdateUserdetailDto } from './dto/update-userdetail.dto';
 
-@Controller('userdetails')
+import { ResponseMessage } from 'src/core/decorators/response.decorator';
+import { CreateUserdetailsDto } from './dto/create-userdetail.dto';
+import { UserdetailsService } from './userdetails.service';
+import { ApiTags } from '@nestjs/swagger';
+
+@Controller('user-details')
+@ApiTags('User')
 export class UserdetailsController {
-  constructor(private readonly userdetailsService: UserdetailsService) {}
+  constructor(private readonly userDetailsService: UserdetailsService) {}
 
   @Post()
-  create(@Body() createUserdetailDto: CreateUserdetailDto) {
-    return this.userdetailsService.create(createUserdetailDto);
+  @ResponseMessage('UserDetails created successfully')
+  async createUserDetails(@Body() body: any) {
+    console.log('here')
+    return this.userDetailsService.create(body);
   }
 
   @Get()
   findAll() {
-    return this.userdetailsService.findAll();
+    return this.userDetailsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userdetailsService.findOne(+id);
+    return this.userDetailsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserdetailDto: UpdateUserdetailDto) {
-    return this.userdetailsService.update(+id, updateUserdetailDto);
+  update(@Param('id') id: string, @Body() updateUserDetailsDto: CreateUserdetailsDto) {
+    return this.userDetailsService.update(id, updateUserDetailsDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userdetailsService.remove(+id);
+    return this.userDetailsService.remove(id);
   }
 }

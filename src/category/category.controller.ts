@@ -5,8 +5,10 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/images.utils';
+import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 
 @Controller('category')
+@ApiTags('Category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
@@ -19,12 +21,25 @@ export class CategoryController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: './upload/images',
+        destination: './upload/images/category',
         filename: editFileName,
       }),
       fileFilter: imageFileFilter,
     }),
   )
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        categoryName: { type: 'string' },
+        image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiConsumes('multipart/form-data')
   createWithImages(
     @UploadedFile(
       new ParseFilePipeBuilder()
@@ -34,10 +49,8 @@ export class CategoryController {
         }),
     )
     file: Express.Multer.File,
-    @Body() createCategoryDto: any,
+    @Body() createCategoryDto: CreateCategoryDto,
   ) {
-    console.log('here');
-    console.log(file);
     return this.categoryService.create({
       categoryName: createCategoryDto.categoryName,
       image: file.filename, // Save the filename or path in the database

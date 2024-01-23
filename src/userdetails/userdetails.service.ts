@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserdetailDto } from './dto/create-userdetail.dto';
-import { UpdateUserdetailDto } from './dto/update-userdetail.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserDetails } from './entities/userdetail.entity';
+import { CreateUserdetailsDto } from './dto/create-userdetail.dto';
+
 
 @Injectable()
 export class UserdetailsService {
-  create(createUserdetailDto: CreateUserdetailDto) {
-    return 'This action adds a new userdetail';
+  constructor(
+    @InjectRepository(UserDetails)
+    private userDetailsRepository: Repository<UserDetails>,
+  ) {}
+
+  async create(createUserDetailsDto: any) {
+    const userDetails = this.userDetailsRepository.create(createUserDetailsDto);
+    console.log('here')
+    return this.userDetailsRepository.save(userDetails);
   }
 
-  findAll() {
-    return `This action returns all userdetails`;
+  async findAll() {
+    return this.userDetailsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} userdetail`;
+  async findOne(id: string) {
+    return this.userDetailsRepository.findOne({ where: { id: id } });
   }
 
-  update(id: number, updateUserdetailDto: UpdateUserdetailDto) {
-    return `This action updates a #${id} userdetail`;
+  async update(id: string, updateUserDetailsDto: CreateUserdetailsDto) {
+    await this.findOne(id); // Check if user details exist
+    return this.userDetailsRepository.update(id, updateUserDetailsDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} userdetail`;
+  async remove(id: string) {
+    const userDetails = await this.findOne(id); // Check if user details exist
+    return this.userDetailsRepository.remove(userDetails);
   }
 }

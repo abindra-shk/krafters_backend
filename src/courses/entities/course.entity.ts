@@ -37,4 +37,3 @@ students: Student[];
   @UpdateDateColumn()
   updatedAt: Date;
 }
-

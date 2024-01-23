@@ -9,7 +9,11 @@ import { ConfigModule } from '@nestjs/config';
 import { UserdetailsModule } from './userdetails/userdetails.module';
 import { CategoryModule } from './category/category.module';
 import { CoursesModule } from './courses/courses.module';
+<<<<<<< HEAD
 import { BatchModule } from './batch/batch.module';
+=======
+import { ImageModule } from './image/image.module';
+>>>>>>> 60d54042bb9badc5da426a7f6a69c1bd135f461a
 
 @Module({
   imports: [
@@ -32,7 +36,11 @@ import { BatchModule } from './batch/batch.module';
     UserdetailsModule,
     CategoryModule,
     CoursesModule,
+<<<<<<< HEAD
     BatchModule
+=======
+    ImageModule,
+>>>>>>> 60d54042bb9badc5da426a7f6a69c1bd135f461a
   ],
   controllers: [AppController],
   providers: [AppService],

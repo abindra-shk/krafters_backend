@@ -21,7 +21,7 @@ import { BatchModule } from './batch/batch.module';
         username: 'krafterstech',
         password: 'Krafters@1234',
         database: 'krafterstech',
-        // entities: ['../**/*.entity.{ts,js}'],
+        entities: ['../**/*.entity.{ts,js}'],
         synchronize: true,
         autoLoadEntities: true,
       }

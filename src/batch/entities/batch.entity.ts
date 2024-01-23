@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { User as Teacher} from 'src/user/entities/user.entity';
 import { Course } from 'src/courses/entities/course.entity';
 import { User as Student } from 'src/user/entities/user.entity';
+import { StatusEnum } from 'src/utils/enums/status.enum';
 @Entity()
 export class Batch{
   @PrimaryGeneratedColumn()
@@ -23,6 +24,13 @@ startingTime: string;
 
 @Column()
 endingTime:string;
+
+@Column({
+  type: 'enum',
+  enum: StatusEnum,
+  default: StatusEnum.INACTIVE,
+})
+status: StatusEnum;
 
 @ManyToMany(() => Student, { eager: true })
 @JoinTable({

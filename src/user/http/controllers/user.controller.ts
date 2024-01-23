@@ -7,8 +7,11 @@ import { CreateUserExceptionFilter } from '../exception-filters/create-user.exce
 import { DuplicateUserExceptionFilter } from '../exception-filters/duplicate-user.exception-filter';
 import { CreateUserRequest } from '../requests/create-user.request';
 import { ResponseMessage } from 'src/core/decorators/response.decorator';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Controller('user')
+@ApiTags('User')
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -30,6 +33,10 @@ export class UserController {
   // }
   @Post("/user")
   @ResponseMessage('User created successfully')
+  @ApiBody({
+    type: CreateUserRequest,
+    description: 'Create user body'
+  })
   async createUser(@Body() body: CreateUserRequest) {
     return this.userService.create(body);
   }

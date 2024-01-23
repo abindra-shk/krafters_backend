@@ -3,8 +3,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ResponseMessage } from 'src/core/decorators/response.decorator';
 import { CreateUserdetailsDto } from './dto/create-userdetail.dto';
 import { UserdetailsService } from './userdetails.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user-details')
+@ApiTags('User')
 export class UserdetailsController {
   constructor(private readonly userDetailsService: UserdetailsService) {}
 

@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 import { User as Teacher} from 'src/user/entities/user.entity';
-import { Course } from 'src/courses/entities/course.entity';
+import { Course } from 'src/course/entities/course.entity';
 import { User as Student } from 'src/user/entities/user.entity';
 import { StatusEnum } from 'src/utils/enums/status.enum';
 @Entity()
@@ -11,13 +11,18 @@ export class Batch{
   @Column()
   batchName: string;
 
+  @Column()
+  price:string;
+
   @ManyToOne(() => Teacher, { eager: true }) // Use eager loading if you want to load the related teacher along with the batch
   @JoinColumn({ name: 'teacherId' }) // Specify the foreign key column name
   teacher: Teacher;
 
-@ManyToOne(()=> Course, {eager:true})
-@JoinColumn({name:"courseId"})
-course: Course;
+// @ManyToOne(()=> Course, {eager:true})
+// @JoinColumn({name:"courseId"})
+// course: Course;
+@Column()
+startingDate:string;
 
 @Column()
 startingTime: string;

@@ -1,4 +1,4 @@
-import { Controller, HttpException, HttpStatus, Inject, Post, Request, UseGuards } from "@nestjs/common";
+import { Controller, Get, HttpException, HttpStatus, Inject, Post, Request, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import * as bcrypt from "bcrypt";
 
@@ -10,6 +10,9 @@ import { UserDetailResponse } from "../response/user-detail.response";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { JwtService } from "@nestjs/jwt";
+import { ResponseMessage } from "src/core/decorators/response.decorator";
+import { TokenGuard } from "../token.guard";
+import { UserService } from "src/user/http/services/user.service";
 
 @ApiTags("Authentication")
 @Controller()
@@ -65,57 +68,66 @@ export class AuthenticationController {
       tokenType: "bearer"
     };
   }
-
-  @Post("/me")
-  @ApiBody({
-    schema: {
-      type: "object",
-      properties: {
-        username: {
-          type: "string"
-        },
-        password: {
-          type: "string"
-        }
-      }
-    }
-  })
-  async loginUser(req) {
-    const user = await this.userRepository.findOne({ where: { username: req.username } });
-    const token = await this.tokenStorage.generateToken({
-      data: {
-        id: user.id,
-        username: user.username,
-        password: user.password
-      }
-    });
-
-
-
-    if (!user) {
-      throw new HttpException("User not found", HttpStatus.UNAUTHORIZED);
-    }
-
-
-    const areEqual = await comparePasswords(user.password, req.password);
-
-    if (!areEqual) {
-      throw new HttpException(
-        "Username or password is incorrect",
-        HttpStatus.UNAUTHORIZED
-      );
-    } else {
-      return {
-        user: new UserDetailResponse({
-          ...user
-        }),
-        accessToken: token,
-        refreshToken: token, // Todo: will implement later
-        tokenType: "bearer"
-      };
-    }
+  
+  @Get('/me')
+  @ResponseMessage('User Details extracted successfully')
+  @UseGuards(TokenGuard)
+  async getMyDetails(@Request() req: any) {
+    console.log('here')
+    return this.userRepository.findOne({ where: { id: req.user.id } })
   }
 }
+
+//   @Post("/me")
+//   @ApiBody({
+//     schema: {
+//       type: "object",
+//       properties: {
+//         username: {
+//           type: "string"
+//         },
+//         password: {
+//           type: "string"
+//         }
+//       }
+//     }
+//   })
+//   async loginUser(req) {
+//     const user = await this.userRepository.findOne({ where: { username: req.username } });
+//     const token = await this.tokenStorage.generateToken({
+//       data: {
+//         id: user.id,
+//         username: user.username,
+//         password: user.password
+//       }
+//     });
+
+
+
+//     if (!user) {
+//       throw new HttpException("User not found", HttpStatus.UNAUTHORIZED);
+//     }
+
+
+//     const areEqual = await comparePasswords(user.password, req.password);
+
+//     if (!areEqual) {
+//       throw new HttpException(
+//         "Username or password is incorrect",
+//         HttpStatus.UNAUTHORIZED
+//       );
+//     } else {
+//       return {
+//         user: new UserDetailResponse({
+//           ...user
+//         }),
+//         accessToken: token,
+//         refreshToken: token, // Todo: will implement later
+//         tokenType: "bearer"
+//       };
+//     }
+//   }
+// }
 
 
 export const comparePasswords = async (userPassword, currentPassword) => {

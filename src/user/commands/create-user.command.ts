@@ -1,5 +1,6 @@
 import { StatusEnum } from "src/common/enums/status.enum";
 import { UserTypeEnum } from "src/common/enums/user-type.enum";
+import { UserDetails } from "src/userdetails/entities/userdetail.entity";
 import { RoleEnum } from "src/utils/enums/role.enum";
 
 
@@ -13,6 +14,7 @@ export class CreateUserCommand {
       readonly role: RoleEnum;
       readonly userType: UserTypeEnum;
       readonly status: StatusEnum;
+      readonly userDetails: UserDetails;
 
     },
   ) {}

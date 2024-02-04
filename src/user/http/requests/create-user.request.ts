@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { RoleEnum } from 'src/utils/enums/role.enum';
 import { UserTypeEnum } from 'src/common/enums/user-type.enum';
 import { StatusEnum } from 'src/common/enums/status.enum';
+import { UserDetails } from 'src/userdetails/entities/userdetail.entity';
 
 export class  CreateUserRequest {
   @IsNotEmpty()
@@ -45,5 +46,9 @@ export class  CreateUserRequest {
     message: 'Invalid status supplied',
   })
   readonly status: StatusEnum;
+
+  @IsOptional()
+  @ApiProperty()
+  readonly userDetails: UserDetails;
 
 }

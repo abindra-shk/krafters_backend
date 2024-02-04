@@ -12,7 +12,7 @@ export class BatchService {
     private readonly batchRepository: Repository<Batch>,
   ) {}
 
-  async create(createBatchDto: CreateBatchDto): Promise<Batch> {
+  async create(createBatchDto: CreateBatchDto) {
     const batch = this.batchRepository.create(createBatchDto);
     return await this.batchRepository.save(batch);
   }
@@ -24,7 +24,7 @@ export class BatchService {
   async findOne(id: string): Promise<Batch | undefined> {
     return await this.batchRepository.findOne({where:{id: id}});
   }
-  async update(id: string, updateBatchDto: UpdateBatchDto): Promise<Batch> {
+  async update(id: string, updateBatchDto: any): Promise<Batch> {
     const batch = await this.batchRepository.preload({
       id: id,
       ...updateBatchDto,

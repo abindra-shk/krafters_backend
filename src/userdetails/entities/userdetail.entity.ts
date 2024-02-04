@@ -1,4 +1,3 @@
-// user-details.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { GenderEnum } from 'src/utils/enums/gender.enum';
 import { Exclude } from 'class-transformer';

@@ -9,10 +9,13 @@ export class Batch{
   readonly id: string;
 
   @Column()
+
   batchName: string;
 
   @Column()
+
   price:string;
+
 
   @ManyToOne(() => Teacher, { eager: true }) // Use eager loading if you want to load the related teacher along with the batch
   @JoinColumn({ name: 'teacherId' }) // Specify the foreign key column name
@@ -39,7 +42,7 @@ status: StatusEnum;
 
 @ManyToMany(() => Student, { eager: true })
 @JoinTable({
-  name: 'batch_students', // This table will store the many-to-many relationship
+  name: 'batch_students', 
   joinColumn: { name: 'batchId', referencedColumnName: 'id' },
   inverseJoinColumn: { name: 'studentId', referencedColumnName: 'id' },
 })

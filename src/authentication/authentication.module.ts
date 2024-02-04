@@ -11,9 +11,11 @@ import { CoreModule } from "../core/core.module";
 import { JwtStorage } from "./storage/jwt.storage";
 import { CqrsModule } from "@nestjs/cqrs";
 import { JwtService } from "@nestjs/jwt";
+import { UserService } from "src/user/http/services/user.service";
+import { UserModule } from "src/user/user.module";
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([User]), CoreModule, PassportModule.register({ defaultStrategy: "jwt" })],
+  imports: [CqrsModule, TypeOrmModule.forFeature([User]), CoreModule,UserModule, PassportModule.register({ defaultStrategy: "jwt" })],
   providers: [DatabaseStrategy,JwtService, NestJwtStrategy, TokenStorageProvider, BcryptService, JwtStorage],
   controllers: [AuthenticationController],
   exports: [BcryptService, JwtStorage]

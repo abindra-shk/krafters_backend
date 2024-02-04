@@ -8,25 +8,13 @@ import { editFileName, imageFileFilter } from 'src/utils/images.utils';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 
 @Controller('category')
+
 @ApiTags('Category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  // @Post()
-  // create(@Body() createCategoryDto: CreateCategoryDto) {
-  //   return this.categoryService.create(createCategoryDto);
-  // }
-
   @Post('upload-image')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './upload/images/category',
-        filename: editFileName,
-      }),
-      fileFilter: imageFileFilter,
-    }),
-  )
+ 
   @ApiBody({
     schema: {
       type: 'object',
@@ -67,11 +55,11 @@ export class CategoryController {
     return this.categoryService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+  @Patch(':id/update')
+  updateCategory(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(id, updateCategoryDto);
   }
-
+  
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.categoryService.remove(id);

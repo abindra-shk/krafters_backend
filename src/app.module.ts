@@ -38,3 +38,20 @@ import { ImageModule } from './image/image.module';
   providers: [AppService],
 })
 export class AppModule {}
+
+
+
+
+// TypeOrmModule.forRoot(
+//   {
+//     type: 'postgres',
+//     host: 'localhost',
+//     port: 5432,
+//     username: 'postgres',
+//     password: 'minor@1234',
+//     database: 'KraftersAcademy',
+//     // entities: ['../**/*.entity.{ts,js}'],
+//     synchronize: true,
+//     autoLoadEntities: true,
+//   }
+// ),

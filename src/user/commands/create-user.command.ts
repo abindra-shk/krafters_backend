@@ -15,7 +15,6 @@ export class CreateUserCommand {
       readonly userType: UserTypeEnum;
       readonly status: StatusEnum;
       readonly userDetails: UserDetails;
-
     },
   ) {}
 }

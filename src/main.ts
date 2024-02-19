@@ -58,7 +58,7 @@ async function bootstrap() {
     SwaggerModule.setup('api-doc', app, document, customOptions);
   }
 
-  useContainer(app.select(AppModule), { fallbackOnErrors: true });
+  useContainer(app.select(AppModule), { fallbackOnErrors: false });
   app.useGlobalInterceptors(new ResponseTransformInterceptor());
   app.enableShutdownHooks();
 

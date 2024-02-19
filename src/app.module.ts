@@ -8,8 +8,9 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserdetailsModule } from './userdetails/userdetails.module';
 import { CategoryModule } from './category/category.module';
-import { CoursesModule } from './courses/courses.module';
 import { ImageModule } from './image/image.module';
+import { BatchModule } from './batch/batch.module';
+import { CourseModule } from './course/course.module';
 import { AddressModule } from './address/address.module';
 import { ExperienceModule } from './experience/experience.module';
 import { EducationModule } from './education/education.module';
@@ -29,13 +30,14 @@ import { EducationModule } from './education/education.module';
         autoLoadEntities: true,
       }
     ),
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({}),
     UserModule,
     AuthenticationModule,
     UserdetailsModule,
     CategoryModule,
-    CoursesModule,
     ImageModule,
+    BatchModule,
+    CourseModule
     AddressModule,
     ExperienceModule,
     EducationModule,

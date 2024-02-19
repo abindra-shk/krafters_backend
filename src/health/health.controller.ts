@@ -3,9 +3,6 @@ import {
   HealthCheckService,
   HttpHealthIndicator,
   HealthCheck,
-  MongooseHealthIndicator,
-  TypeOrmHealthIndicator,
-  DiskHealthIndicator,
   MemoryHealthIndicator,
 } from '@nestjs/terminus';
 import { ResponseTransformInterceptorIgnore } from '../core/http/interceptors/response-transform.interceptor';
@@ -18,7 +15,6 @@ export class HealthController {
   constructor(
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
-    private mongoDBHealth: MongooseHealthIndicator,
     private memoryHealthIndicator: MemoryHealthIndicator,
   ) {}
 
@@ -30,7 +26,6 @@ export class HealthController {
   check() {
     // return this.health.check([() => this.http.pingCheck('base-OKR', 'http://localhost:3002')]);
     return this.health.check([
-      () => this.mongoDBHealth.pingCheck('database'),
       // the process should not use more than 300MB memory
       () =>
         this.memoryHealthIndicator.checkHeap('memory heap', 300 * 1024 * 1024),

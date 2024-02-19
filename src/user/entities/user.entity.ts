@@ -4,6 +4,7 @@ import { StatusEnum } from "src/common/enums/status.enum";
 import { UserTypeEnum } from "src/common/enums/user-type.enum";
 import { RoleEnum } from "src/utils/enums/role.enum";
 import { UserDetails } from "src/userdetails/entities/userdetail.entity";
+import { Address } from "src/address/entities/address.entity";
 
 @Entity()
 export class User {
@@ -65,6 +66,10 @@ export class User {
   @OneToOne(() => UserDetails)
   @JoinColumn()
   userDetails: UserDetails;
+
+  @OneToOne(() => Address)
+  @JoinColumn()
+  address: Address;
 
   @Exclude()
   @CreateDateColumn()

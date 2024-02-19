@@ -37,7 +37,7 @@ import { EducationModule } from './education/education.module';
     CategoryModule,
     ImageModule,
     BatchModule,
-    CourseModule
+    CourseModule,
     AddressModule,
     ExperienceModule,
     EducationModule,
